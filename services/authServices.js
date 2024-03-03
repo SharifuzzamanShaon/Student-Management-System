@@ -3,16 +3,16 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const { findUserByProperty, addNewUser } = require('./user')
-const error = require("../utils/error");
+const {error} = require("../utils/error");
 
 
 // Roles & accountStatus using by admin function 
-async function registerService({ username, email, password, roles, accountStatus }) {
+async function registerService({ username, email, password, role, studentInfo, facultyInfo, adminInfo  }) {
 
     const isEmailExists = await findUserByProperty('email', email)
     if (isEmailExists) throw error('User Exists', 400)
     const hash = await bcrypt.hash(password, saltRounds)
-    return addNewUser({ username, email, password: hash, roles, accountStatus})
+    return addNewUser({ username, email, password: hash, role, studentInfo, facultyInfo, adminInfo })
 }
 
 async function loginService({ email, password }) {

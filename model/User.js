@@ -1,6 +1,11 @@
-const { mongoose } = require("mongoose");
+const { mongoose, Schema } = require("mongoose");
+const { schema } = require("./studentAttendance");
+const { studentInfoSchema, facultySchema } = require("./rolebased_schema");
+
+
 
 const userSchema = new mongoose.Schema({
+
     username: {
         type: String,
         required: true
@@ -14,17 +19,26 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 3
     },
-    roles: {
-        type: [String],
-        default: ['STUDENT'],
+    role: {
+        type: String,
+        enum: ['STUDENT', 'ADMIN', 'FACULTY', 'ACCOUNTENT'],
         required: true
     },
-    accountStatus: {
-        type: String,
-        enum: ['PENDING', 'ACTIVE', 'REJECTED'],
-        default: 'PENDING'
+    studentInfo: {
+        type: studentInfoSchema, // or specify detailed schema for student_info
+        required: function () {
+            return this.roles ==='STUDENT'
+        }
+    },
+    facultyInfo: {
+        type: facultySchema,
+        required: function () {
+            return this.roles === "FACULTY";
+        }
     }
 })
+
+
 
 const User = mongoose.model("User", userSchema)
 

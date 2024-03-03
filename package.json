@@ -1,7 +1,7 @@
 {
   "name": "nodejs_1",
   "version": "1.0.0",
-  "description": "",
+  "description": "Description: Backend to Integrate the online attendance system using Node js and Mongo DB Database,\r The main goal of this project is to focus on code/function reusability and reduce the complexity of development.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

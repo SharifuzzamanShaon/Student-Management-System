@@ -1,7 +1,7 @@
 const { addMinutes, isAfter } = require("date-fns")
 const adminAttendance = require("../model/adminAttendance")
 const studentAttenadance = require("../model/studentAttendance")
-const error = require("../utils/error")
+const {error} = require("../utils/error")
 
 const getAttendance = async (req, res, next) => {
     const { id } = req.params

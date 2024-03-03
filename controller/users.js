@@ -1,6 +1,6 @@
 const User = require('../model/User')
 const userService = require('../services/user')
-const error = require('../utils/error')
+const { error } = require('../utils/error')
 const authService = require('../services/authServices')
 const getUsers = async (req, res, next) => {
     try {

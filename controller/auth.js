@@ -6,8 +6,8 @@ const { registerService, loginService } = require('../services/authServices');
 
 const registerController = async (req, res, next) => {
     try {
-        const { username, email, password } = req.body
-        const newUser = await registerService({ username, email, password })
+        const { username, email, password, role, studentInfo, facultyInfo, adminInfo } = req.body
+        const newUser = await registerService({ username, email, password, role, studentInfo, facultyInfo, adminInfo })
         return res.status(200).send({ message: 'New user created', newUser })
     } catch (error) {
         next(error)

@@ -1,5 +1,5 @@
 const adminAttendance = require("../model/adminAttendance")
-const error = require('../utils/error')
+const { error } = require('../utils/error')
 const { addMinutes, isAfter } = require('date-fns')
 
 const getEnable = async (req, res, next) => {
@@ -19,9 +19,9 @@ const getStatus = async (req, res, next) => {
         const isRunning = await adminAttendance.findOne({ status: 'RUNNING' })
         if (!isRunning) throw error('not running', 400)
 
-        const started = addMinutes(new Date(isRunning.createdAt), isRunning.timelimit)
+        const started = addMinutes(new Date(isRunning.createdAt), isRunning.timelimit) // Add the specified number of minutes to the given date.
 
-        console.log(isAfter(new Date(), started));
+        console.log(isAfter(new Date(), started)); //The first date is after the second date
 
         if (isAfter(new Date(), started)) {
             isRunning.status = 'COMPLETED'

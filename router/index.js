@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const authRouter = require("./auth")
+const authRouter = require("./auth/auth")
 const userRouter = require('./users')
-const adminAttendance = require("./adminAttendance")
+const adminAttendance = require("./attendance/adminAttendance")
 const authMiddleware = require('../middleware/auth')
-const studentAttenadance = require('./studentAttenadance')
+const studentAttenadance = require('./attendance/studentAttenadance')
 
 
 router.use("/api/v1/auth", authRouter)
