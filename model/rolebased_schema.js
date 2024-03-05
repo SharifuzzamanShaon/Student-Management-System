@@ -23,18 +23,20 @@ const studentInfoSchema = new mongoose.Schema({
             ref: "course"
         }
     ],
-    // result: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "result"
-    // },
-    // cgpa:{
-    //     type: Number
-    // },
+    gpa: {
+        type: Schema.Types.ObjectId,
+        ref: "gpa"
+    },
+    cgpa:{
+        type: Number
+    },
     courseCredit: {
         completed: { type: Number },
         required: { type: Number }
     }
 })
+
+
 
 const facultySchema = new mongoose.Schema({
     facultyId: {

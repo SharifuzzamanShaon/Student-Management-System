@@ -5,7 +5,7 @@ const Course = new mongoose.Schema({
         type: String,
         required: true
     },
-    course_code: {
+    courseCode: {
         type: String,
         required: true
     },
@@ -14,16 +14,26 @@ const Course = new mongoose.Schema({
         enum: [1, 3],
         required: true
     },
-    total_capacity: {
+    totalCapacity: {
         type: Number
     },
-    class_duration:{
-        type:String,
+    classDuration: {
+        type: String,
         enum: ['1h', '2h']
     },
     faculty: {
         type: Schema.Types.ObjectId,
         ref: "faculty"
+    },
+    regStudents: {
+        type: [Schema.Types.ObjectId],
+        ref: "User",
+        validate: {
+            validator: function (arr) {
+                return arr.length <= this.totalCapacity
+            },
+            message: ` exceeds the maximum capacity`
+        }
     }
 })
 
