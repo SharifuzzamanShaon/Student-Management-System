@@ -15,6 +15,10 @@ const addNewCourse = ({ name, courseCode, credit, totalCapacity,
     })
     return newCourse.save();
 }
+const insertCourseArr = async (courses) => {
+    const res = await course.insertMany(courses)
+    return res;
+}
 module.exports = {
-    findCourseByProperty, addNewCourse
+    findCourseByProperty, addNewCourse, insertCourseArr
 }
