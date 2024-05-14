@@ -1,4 +1,4 @@
-# Title: Student Attendance System(Backend).
+# Title: Student Management System(Backend).
 Description: Backend to Integrate the online attendance system using Node js and Mongo DB Database,
 The main goal of this project is to focus on code/function reusability and reduce the complexity of development.  
 
@@ -6,3 +6,8 @@ The main goal of this project is to focus on code/function reusability and reduc
 ### cron job schedule
 ### code reusability 
 ### Error handling, and complete folder structure  
+
+
+
+System Design and requirements.
+https://github.com/SharifuzzamanShaon/UML-diagram-
