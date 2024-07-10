@@ -7,6 +7,7 @@ const studentAttenadance = require('./attendance/studentAttenadance')
 const courseRouter = require('./course/courseRouter')
 const regCourseByStudent = require("./course/regCourseRouter")
 const resultRouter = require('./result/resultRouter')
+const adminRoute = require("./admin/admin-router")
 
 router.use("/api/v1/auth", authRouter)
 router.use("/api/v1/users", userRouter)
@@ -15,4 +16,5 @@ router.use("/api/v1/studentAttenadance", authMiddleware, studentAttenadance)
 router.use("/api/v1/course", courseRouter)
 router.use("/api/v1/regCourseByStudent", regCourseByStudent)
 router.use("/api/v1/result",resultRouter)
+router.use("/api/v1/admin/", adminRoute)
 module.exports = router

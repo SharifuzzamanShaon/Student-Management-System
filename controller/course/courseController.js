@@ -1,4 +1,3 @@
-const { response } = require("express");
 const course = require("../../model/course")
 const { addNewCourse, insertCourseArr } = require("../../services/course");
 const { error } = require("../../utils/error");
@@ -58,17 +57,27 @@ const regCourseByStudent = async (req, res, next) => {
 const regToNewCourse = async (req, res, next) => {
 
     try {
-        const query = {
-            $and: [
-                { _id: req.params.courseId },
-                { regStudents: req.params.studentId }
-            ]
+        console.log(req.params.courseId);
+        const registeredCourses = await course.find({ "regStudents": req.params.studentId });
+        if (registeredCourses) {
+            const totalCreditTaken = registeredCourses.reduce((acc, cur) => acc + cur.credit, 0);
+            if (totalCreditTaken >= 11) {
+                throw error(`Already taken ${totalCreditTaken}, can not take more than 11 credit`, 403);
+            }
         }
-        const isAlredyRegistered = await course.findOne({ query });
+        console.log(registeredCourses);
+        const isAlredyRegistered =  registeredCourses.some(course => 
+            course._id.equals(req.params.courseId) && course.regStudents.includes(req.params.studentId)
+        );
         console.log(isAlredyRegistered);
-        if (isAlredyRegistered) throw error('already registared', 409);
-        const respose = await course.findOneAndUpdate(req.params.courseId, { regStudents: req.params.studentId })
-        return res.status(200).send({ message: "success", 'respose': respose });
+        if (!isAlredyRegistered) {
+            const respose = await course.findByIdAndUpdate(req.params.courseId, { $push: { regStudents: req.params.studentId } }, { new: true })
+            return res.status(200).send({ message: "success", 'respose': respose });
+        }
+        else {
+            throw error('already registared', 409);
+        }
+
     } catch (err) {
         next(err)
     }
