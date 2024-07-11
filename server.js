@@ -5,13 +5,14 @@ const bodyParser = require('body-parser');
 const authenticate = require("./middleware/auth");
 const routes = require("./router");
 const User = require("./model/User");
+const logger = require('./config/logger')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const connectDB = async () => {
     try {
         await mongoose.connect('mongodb://127.0.0.1:27017/student_management');
-        console.log("DB Connected");
+        logger.info("DB connected");
     } catch (error) {
         console.log(error.message);
     }

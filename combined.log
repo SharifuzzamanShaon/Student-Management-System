@@ -1,0 +1,3 @@
+{"level":"info","message":"Hi","service":"user-service"}
+{"level":"info","message":"DB connected","service":"user-service"}
+{"level":"info","message":"DB connected","service":"user-service"}
