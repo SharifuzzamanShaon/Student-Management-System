@@ -6,7 +6,6 @@ const { connectDB } = require("./configDB/connectDB");
 const routes = require("./router");
 const User = require("./model/User");
 const logger = require('./config/logger');
-const rateLimitMiddleware = require("./middleware/rateLimit");
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -33,9 +32,6 @@ app.get("/health",(req,res)=>{
 })
 
 app.use(routes)
-app.get("/test", rateLimitMiddleware, (req, res) => {
-    res.send("Hello World")
-})
 
 app.use((error, req, res, text) => {
     const message = error.message ? error.message : "Server Error Occured"
