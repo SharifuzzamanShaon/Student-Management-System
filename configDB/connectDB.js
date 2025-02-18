@@ -7,9 +7,9 @@ exports.connectDB = async () => {
       "mongodb+srv://mdshaon2200:mdshaon2200@cluster0.qiqof.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     );
     // logger.info("DB connected");
-    console.log("DB connected");
+    console.log("DB connected successfully");
     
   } catch (error) {
-    console.log(error.message);
+    console.log("DB connection error", error.message);
   }
 };
