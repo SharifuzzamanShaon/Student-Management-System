@@ -1,22 +1,16 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
 const app = express()
 const bodyParser = require('body-parser');
 const authenticate = require("./middleware/auth");
+const { connectDB } = require("./configDB/connectDB");
 const routes = require("./router");
 const User = require("./model/User");
-const logger = require('./config/logger')
+const logger = require('./config/logger');
+const rateLimitMiddleware = require("./middleware/rateLimit");
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/student_management');
-        logger.info("DB connected");
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+
 //Private router
 app.get("/private", authenticate, async (req, res) => {
     const validUser = req.userss
@@ -33,10 +27,15 @@ app.get("/getSingle/:userId", async(req, res, next) => {
     }
 
 })
-// Router Registration
+
+app.get("/health",(req,res)=>{
+    res.status(200).send("Server is running")
+})
 
 app.use(routes)
-
+app.get("/test", rateLimitMiddleware, (req, res) => {
+    res.send("Hello World")
+})
 
 app.use((error, req, res, text) => {
     const message = error.message ? error.message : "Server Error Occured"
@@ -46,5 +45,5 @@ app.use((error, req, res, text) => {
 
 app.listen(5020, async () => {
     console.log("server running at http://localhost:5020");
-    await connectDB()
+    await connectDB();
 })
